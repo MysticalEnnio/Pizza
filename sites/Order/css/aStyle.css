@@ -1,0 +1,30 @@
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: var(--font-color);
+	border-radius: 10px;
+	/*border: 3px solid var(--bg-color);*/
+}
+
+/*Page back arrow*/
+.icon-back {
+	stroke-width: 3;
+	width: 50px;
+	height: 30px;
+}
+
+.icon-back-div {
+	width: 50px;
+	height: 30px;
+	cursor: pointer;
+	top: 4.5%;
+	left: 3%;
+	position: fixed;
+}

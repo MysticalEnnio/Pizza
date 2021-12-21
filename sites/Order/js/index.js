@@ -2,29 +2,63 @@
 Copyright © 2021 Ennio Marke
 socket.io
 *******************************************************************************/
+$(document).ready(function () {
 
-document.addEventListener("DOMContentLoaded", () => {
+  var socket = io();
 
-  const socket = io("https://myst-socket.glitch.me"); //use this to initialize the socket that we will use to talk to the server
-  var textfield = document.getElementById("input");   //variable to quickly refer to the text input field
-  var button = document.getElementById("submit");     //variable to quickly refer to the submit button
-  var content = document.getElementById("content");   //variable to quickly refer to the display div
+  $.ajaxSetup({
+    cache: false
+  });
 
-  //button.addEventListener('click', () => {            //when the submit button is pressed...
-  //  content.innerHTML = textfield.value;              //set the text in our own browser to the text that was typed into the text field
-  //  socket.emit("outgoingData", textfield.value);     //send the text to the server
-  //  textfield.value = "";                             //reset the text field so it says nothing
-  //});
+  function loadUIPage(page) {
+    var cases = ['Home'];
+    if (!cases.indexOf(page >= 0)) return;
+    pageStandardMethods(page);
+    switch (page) {
+      case "Home":
+        $('#content').empty().append('<a id="newPizza">Order new Pizza</a>') 
+        setTimeout(() => {
+          //check if New Session got clicked
+          $('#newPizza').click(() => {
+            //when clicked fade out all UI elements, load new UI elements and fade new UI elements in
+            loadUIPage("newPizza")
+          })
+          $('#content *').fadeIn();
+        }, 1000);
+        break;
+    }
+  }
 
-  //textfield.addEventListener('keyup', e => {          //when a key is pressed and the text field is in focus...
-  //  if (e.keyCode === 13) {                           //if the key is the enter key (code 13)
-  //    button.click();                             //click the button
-  //  }
-  //});
-
-socket.on("newPizza", (data) => {               //if data from the server is received...
-  content.innerHTML = data                         //set the displayed in our browser to the received text
-  console.log(data)
-});
+  $(".icon-back-div").click(() => {
+    $('.icon-back-div').animate({
+      left: "-=75"
+    }, 100, $.easie(0.5, 0.5, 1, 1.5), () => {
+      $('.icon-back-div').hide()
+      $('.icon-back-div').animate({
+        left: "+=75"
+      }, 1)
+      loadUIPage(pageBefore.get(currentPage))
+    })
     
-})
+  })
+
+  /*$(".icon-back-div").click(() => {
+    $('.icon-back-div').animate({
+      left: "-=25"
+    }, 100, $.easie(0.5, 0.5, 1, 1.5))
+    $('.icon-back-div').animate({
+      left: "+=25"
+    }, 100, $.easie(0.5, 0.5, 1, 1.5))
+    loadUIPage(pageBefore.get(currentPage))
+  })*/
+
+  loadUIPage("Home")
+
+});
+
+function pageStandardMethods(page) {
+  $('#content *').fadeOut()
+  currentPage = page
+  if (page == "Home") pba.hide();
+  else pba.show();
+}
