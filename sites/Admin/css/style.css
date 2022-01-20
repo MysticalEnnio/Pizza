@@ -164,7 +164,7 @@ p {
   flex-direction: row;
 }
 
-.flex-container:nth-child(1) {
+.sE:first-child {
   margin-top: 10%;
 }
 

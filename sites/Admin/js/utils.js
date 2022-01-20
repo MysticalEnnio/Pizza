@@ -42,10 +42,12 @@ var getDomString =(function() {
 
 function selectSessionIngredients() {
     $.getJSON("assets/ingredients.json", data => {
-        for (let i = 0; i < data.length; i++) {
+        $('#nSI').append(`<p class="iTR tE" style="display: none;">${data[0]}</p>`)
+        for (let i = 1; i < data.length; i++) {
             $('#nSI').append(`<p class="iTR" style="display: none;">${data[i]}</p>`)
         }
     });
+    addMarginTop('#nSI')
     selectSessionEl()
 }
 
@@ -74,9 +76,10 @@ function removeElement(Element, path) {
     });
 }
 
-function addMarginTop() {
+function addMarginTop(id) {
     setTimeout(() => {
-        let bES = $('#content')[$('#content').length - 1].scrollHeight-window.innerHeight
+        let bES = $(id).children().last().scrollTop()//-window.innerHeight
+        console.log(bES)
         $('.tE').css('margin-top', bES * 2)
     }, 100);
 }

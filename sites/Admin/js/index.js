@@ -45,7 +45,7 @@ $(document).ready(function () {
         $('#content').append('<a id="aNO" class="tE">Add new Option</a>');
         $('#content').append('<a id="rO">Remove Option</a>');
         setTimeout(() => {
-          addMarginTop();
+          addMarginTop('#content');
           $('#content *').fadeIn()
           $('#aNO').click(() => {
             $('#content').removeClass('options')
@@ -113,7 +113,7 @@ $(document).ready(function () {
         $('#content').append('<a id="aNI" class="tE" style="display: none;">Add new Ingredient</a>');
         $('#content').append('<a id="rI" style="display: none;">Remove Ingredient</a>');
         setTimeout(() => {
-          addMarginTop();
+          addMarginTop('#content');
           $('#content *').fadeIn()
           $('#aNI').click(() => {
             $('#content').removeClass('ingredients')
