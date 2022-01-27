@@ -24,6 +24,21 @@ Copyright © 2021 Ennio Marke
   width: 100%;
 }
 
+textarea {
+  width: 90%;
+  resize: none;
+  border: 0;
+  background: var(--bg-color);
+  border-bottom: 2px solid var(--font-color);
+  color: var(--font-color);
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+textarea:focus {
+  outline: none;
+}
+
 h1 {
   color: var(--heading-color);
   font-size: 2rem;
@@ -88,11 +103,51 @@ p {
   margin: 5px;
 }
 
+section {
+  max-width: 68%;
+  margin: 0 auto;
+}
+
+
+ul#output {
+  overflow: auto;
+  height: 75vh;
+  width: 100%;
+  margin: 1em 0;
+  padding: 0 3px;
+  list-style: none;
+  display: block;
+}
+
+ul#output li {
+  margin: 0.35em 0;
+  padding: 0;
+  color: var(--font-color);
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+ul#output li.pink {
+  color: var(--font-color-2);
+}
+
+
+hr {
+  visibility: hidden;
+  margin: 0 auto;
+  margin-top: 40px;
+  width: 20%;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+}
+
 #content {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   height: 100%;
   overflow: auto;
 }
@@ -106,7 +161,6 @@ p {
   height: 100%;
   width: 100%;
   overflow: auto;
-  margin-top: 0;
 }
 
 .flex-container * {
@@ -114,7 +168,7 @@ p {
 }
 
 .flex-container a {
-  font-size: 10vmin;
+  font-size: 10vh;
   display: none;
 }
 
@@ -123,12 +177,16 @@ p {
 }
 
 #content a {
-  font-size: 10vmin;
+  font-size: 10vh;
   display: none;
 }
 
 #content.ingredients a#aNI,
 #content.ingredients a#aNO {
+  margin-top: 40vh;
+}
+
+#content p.tE {
   margin-top: 10vh;
 }
 
@@ -151,21 +209,8 @@ p {
 }
 
 .float-child {
-  height: 100%;
   width: 50%;
   float: left;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.flex-row {
-  flex-direction: row;
-}
-
-.sE:first-child {
-  margin-top: 10%;
 }
 
 /*********************************
