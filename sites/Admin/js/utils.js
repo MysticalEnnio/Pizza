@@ -9,9 +9,12 @@ pageBefore.set("addIngredient", "Ingredients");
 pageBefore.set("removeOption", "Options");
 pageBefore.set("removeIngredient", "Ingredients");
 
+var sessionO = [];
+var sessionI = [];
+
 function writeToFile(path, input) {
   $.ajax({
-    url: "wtf.php",
+    url: "./wtf.php",
     data: {
       input: JSON.stringify(input),
       path: path,
@@ -41,30 +44,89 @@ var getDomString = (function () {
 })();
 
 function selectSessionIngredients() {
-  $.getJSON("assets/ingredients.json", (data) => {
+  $.getJSON("./assets/ingredients.json", (data) => {
     for (let i = 0; i < data.length; i++) {
       $("#content").append(
-        `<p class="ingredient" style="display: none;">${data[i]}</p>`
+        `<p class="ingredient used" style="display: none;">${data[i]}</p>`
       );
     }
+    $("#content").append(`<button id="next">Next</button>`);
   });
-  selectSessionEl();
-}
-
-function selectSessionEl() {
   setTimeout(() => {
     $("#content *").fadeIn();
-    $("#nSI p").click((e) => {
-      $("#sI").append(getDomString(e.target));
-      e.target.remove();
-      $("#content *").off();
-      selectSessionEl();
+    $(".ingredient").click(function (e) {
+      //$("#nSI").append(getDomString(e.target));
+      //e.target.remove();
+      //$("#content *").off();
+      $(this).toggleClass("used");
     });
-    $("#sI p").click((e) => {
-      $("#nSI").append(getDomString(e.target));
-      e.target.remove();
-      $("#content *").off();
-      selectSessionEl();
+    $("#next").click(function (e) {
+      $("#content > p").each(function () {
+        if (!$(this).hasClass("used")) {
+          sessionI.push($(this).text());
+        }
+      });
+      console.log(sessionI);
+      selectSessionO();
+    });
+  }, 100);
+}
+
+function selectSessionO() {
+  $("#content").empty();
+  $.getJSON("./assets/options.json", (data) => {
+    for (let i = 0; i < data.length; i++) {
+      $("#content").append(
+        `<p class="option used" style="display: none;">${data[i]}</p>`
+      );
+    }
+    $("#content").append(`<button id="next">Next</button>`);
+  });
+  setTimeout(() => {
+    $("#content *").fadeIn();
+    $(".option").click(function (e) {
+      $(this).toggleClass("used");
+    });
+    $("#next").click(function (e) {
+      //^ maybe 2 because ingredient same button ^
+
+      $("#content > p").each(function () {
+        if (!$(this).hasClass("used")) {
+          sessionO.push($(this).text());
+        }
+      });
+      console.log(sessionO);
+      showOrders();
+    });
+  }, 100);
+}
+
+function showOrders() {
+  $("#content").empty();
+  $("#content").load("./UI/orders.html");
+  setTimeout(() => {
+    $("#content").append('<div id="orderHeading">Orders</div>');
+    var options = {
+      I: sessionI,
+      O: sessionO,
+      time: Date.now(),
+    };
+    var socket = io("https://myst-socket.glitch.me/", {
+      query: {
+        type: "admin",
+        opt: JSON.stringify(options),
+      },
+    });
+
+    socket.on("newPizza", (pizza) => {
+      console.log(pizza);
+      $("#orders").append(`
+      <tr>
+        <td>${pizza.N}</td>
+        <td>${pizza.I}</td>
+        <td>${pizza.O}</td>
+      </tr>
+      `);
     });
   }, 100);
 }

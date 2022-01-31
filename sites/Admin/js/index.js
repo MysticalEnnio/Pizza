@@ -3,7 +3,9 @@ Copyright © 2021 Ennio Marke
 socket.io
 *******************************************************************************/
 $(document).ready(function () {
-  var socket = io();
+  //var socket = io();
+
+  var arrowBackType = 0; // 1 == slide, 0 == easeInOut
 
   $.ajaxSetup({
     cache: false,
@@ -26,7 +28,7 @@ $(document).ready(function () {
       case "Home":
         $("#content")
           .empty()
-          .load("UI/home.html", () => {
+          .load("./UI/home.html", () => {
             //check if New Session got clicked
             $("#Session").click(() => {
               //when clicked fade out all UI elements, load new UI elements and fade new UI elements in
@@ -47,7 +49,7 @@ $(document).ready(function () {
         break;
       case "Options":
         $("#content").empty().addClass("options");
-        $.getJSON("assets/options.json", (data) => {
+        $.getJSON("./assets/options.json", (data) => {
           for (let i = 0; i < data.length; i++) {
             $("#content").append(`<p style="display: none;">${data[i]}</p>`);
           }
@@ -75,9 +77,9 @@ $(document).ready(function () {
         $("#oI").fadeIn();
         $("#oI").keypress((e) => {
           if (e.which == 13) {
-            $.getJSON("assets/options.json", (data) => {
+            $.getJSON("./assets/options.json", (data) => {
               data.push($("#oI").val());
-              writeToFile("assets/options.json", data);
+              writeToFile("./assets/options.json", data);
               $("#oI").val("");
               loadUIPage("Options");
             });
@@ -87,7 +89,7 @@ $(document).ready(function () {
 
       case "removeOption":
         $("#content").empty();
-        $.getJSON("assets/options.json", (data) => {
+        $.getJSON("./assets/options.json", (data) => {
           for (let i = 0; i < data.length; i++) {
             $("#content").append(
               `<p class="oTR ${i == 0 ? "tE" : ""}" style="display: none;">${
@@ -99,7 +101,10 @@ $(document).ready(function () {
         setTimeout(() => {
           $("#content *").fadeIn();
           $("#content p").click((e) => {
-            removeElement(e.target.innerHTML, "assets/options.json");
+            removeElement(
+              e.target.innerHTML,
+              "./assets/options.json"
+            );
             e.target.remove();
             setTimeout(() => {
               loadUIPage("Options");
@@ -113,18 +118,11 @@ $(document).ready(function () {
         setTimeout(() => {
           selectSessionIngredients();
         }, 100);
-        $.post("https://myst-socket.glitch.me/newSession", {
-          I: ["Salami", "Käse"],
-          O: ["Kalzone"],
-          time: Date.now(),
-        }).done(function (res) {
-          console.log(res);
-        });
         break;
 
       case "Ingredients":
         $("#content").empty().addClass("ingredients");
-        $.getJSON("assets/ingredients.json", (data) => {
+        $.getJSON("./assets/ingredients.json", (data) => {
           for (let i = 0; i < data.length; i++) {
             $("#content").append(`<p style="display: none;">${data[i]}</p>`);
           }
@@ -156,9 +154,9 @@ $(document).ready(function () {
         $("#content *").fadeIn();
         $("#iI").keypress((e) => {
           if (e.which == 13) {
-            $.getJSON("assets/ingredients.json", (data) => {
+            $.getJSON("./assets/ingredients.json", (data) => {
               data.push($("#iI").val());
-              writeToFile("assets/ingredients.json", data);
+              writeToFile("./assets/ingredients.json", data);
               $("#iI").val("");
               loadUIPage("Ingredients");
             });
@@ -168,7 +166,7 @@ $(document).ready(function () {
 
       case "removeIngredient":
         $("#content").empty();
-        $.getJSON("assets/ingredients.json", (data) => {
+        $.getJSON("./assets/ingredients.json", (data) => {
           for (let i = 0; i < data.length; i++) {
             $("#content").append(
               `<p class="iTR ${i == 0 ? "tE" : ""}" style="display: none;">${
@@ -180,7 +178,10 @@ $(document).ready(function () {
         setTimeout(() => {
           $("#content *").fadeIn();
           $("#content p").click((e) => {
-            removeElement(e.target.innerHTML, "assets/ingredients.json");
+            removeElement(
+              e.target.innerHTML,
+              "./assets/ingredients.json"
+            );
             e.target.remove();
             setTimeout(() => {
               loadUIPage("Ingredients");
@@ -191,35 +192,45 @@ $(document).ready(function () {
     }
   }
 
-  $(".icon-back-div").click(() => {
-    $(".icon-back-div").animate(
-      {
-        left: "-=75",
-      },
-      100,
-      $.easie(0.5, 0.5, 1, 1.5),
-      () => {
-        $(".icon-back-div").hide();
-        $(".icon-back-div").animate(
-          {
-            left: "+=75",
-          },
-          1
-        );
-        loadUIPage(pageBefore.get(currentPage));
-      }
-    );
-  });
-
-  /*$(".icon-back-div").click(() => {
-    $('.icon-back-div').animate({
-      left: "-=25"
-    }, 100, $.easie(0.5, 0.5, 1, 1.5))
-    $('.icon-back-div').animate({
-      left: "+=25"
-    }, 100, $.easie(0.5, 0.5, 1, 1.5))
-    loadUIPage(pageBefore.get(currentPage))
-  })*/
+  if (arrowBackType) {
+    $(".icon-back-div").click(() => {
+      $(".icon-back-div").animate(
+        {
+          left: "-=75",
+        },
+        100,
+        $.easie(0.5, 0.5, 1, 1.5),
+        () => {
+          $(".icon-back-div").hide();
+          $(".icon-back-div").animate(
+            {
+              left: "+=75",
+            },
+            1
+          );
+          loadUIPage(pageBefore.get(currentPage));
+        }
+      );
+    });
+  } else {
+    $(".icon-back-div").click(() => {
+      $(".icon-back-div").animate(
+        {
+          left: "-=25",
+        },
+        100,
+        $.easie(0.5, 0.5, 1, 1.5)
+      );
+      $(".icon-back-div").animate(
+        {
+          left: "+=25",
+        },
+        100,
+        $.easie(0.5, 0.5, 1, 1.5)
+      );
+      loadUIPage(pageBefore.get(currentPage));
+    });
+  }
 
   loadUIPage("Home");
 });

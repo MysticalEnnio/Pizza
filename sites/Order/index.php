@@ -11,14 +11,12 @@
     <meta property="og:description" content="Chat for all Mystical People">
     <meta property="og:image" content="http://mystaredia.de/assets/pictures/Mystaredia.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Italianno">
-    <link rel="stylesheet" href="css/style.css?t=<?=time()?>">
-    <link rel="stylesheet" href="css/aStyle.css?t=<?=time()?>">
-    <link rel="stylesheet" href="css/menu.css?t=<?=time()?>">
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/socket.io.min.js"></script>
-    <script src="js/utils.js?t=<?=time()?>"></script>
-    <script src="js/index.js?t=<?=time()?>"></script>
-    <script src="js/jquery.easie-min.js?t=<?=time()?>"></script>
+    <link rel="stylesheet" href="./css/style.css?t=<?=time()?>">
+    <link rel="stylesheet" href="./css/aStyle.css?t=<?=time()?>">
+    <link rel="stylesheet" href="./css/menu.css?t=<?=time()?>">
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/socket.io.min.js"></script>
+    <script src="./js/index.js?t=<?=time()?>"></script>
     <title>Pizza</title>
 </head>
 
@@ -44,7 +42,7 @@
             <li><a href="../../" class="menu-option">Home</a></li>
             <li><a onclick="document.getElementById('page-nav-toggle').checked = false"
                     style="cursor: pointer" class="menu-option">Order</a></li>
-            <li><a href="../../sites/Admin/" class="menu-option">Admin</a></li>
+            <li><a href="../../sites/Admin" class="menu-option">Admin</a></li>
             <li><a href="../../sites/About/" class="menu-option">About</a></li>
         </ul>
     </nav>
@@ -56,7 +54,11 @@
         </svg>
     </div>
     <div id="content">
-        <a id="newPizza">Order new Pizza</a>
+        <a id="Session">New Session</a>
+        <br>
+        <a id="Ingredients">Ingredients</a>
+        <br>
+        <a id="Options">Options</a>
     </div>
 </body>
 </html>
