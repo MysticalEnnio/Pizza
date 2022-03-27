@@ -1,21 +1,29 @@
+<!-- 
+Copyright © 2022 Ennio Marke
+ ____    ____  ____  ____   ______   _________  
+|_   \  /   _||_  _||_  _|.' ____ \ |  _   _  | 
+  |   \/   |    \ \  / /  | (___ \_||_/ | | \_| 
+  | |\  /| |     \ \/ /    _.____`.     | |     
+ _| |_\/_| |_    _|  |_   | \____) |   _| |_    
+|_____||_____|  |______|   \______.'  |_____| 
+-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="icon" href="assets/pictures/favicon.png">
+    <link rel="icon" href="../../assets/pictures/favicon.png">
     <meta property="og:type" content="website">
     <meta property="og:url" content="http://mystaredia.de/sites/chat">
     <meta property="og:title" content="MystiChat">
     <meta property="og:description" content="Chat for all Mystical People">
-    <meta property="og:image" content="http://mystaredia.de/assets/pictures/Mystaredia.png">
+    <meta property="og:image" content="http://old.mystaredia.de/assets/pictures/Mystaredia.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Italianno">
     <link rel="stylesheet" href="./css/style.css?t=<?=time()?>">
-    <link rel="stylesheet" href="./css/aStyle.css?t=<?=time()?>">
-    <link rel="stylesheet" href="./css/menu.css?t=<?=time()?>">
-    <script src="./js/jquery-3.6.0.min.js"></script>
-    <script src="./js/socket.io.min.js"></script>
+    <link rel="stylesheet" href="../../libs/menu.css?t=<?=time()?>">
+    <script src="../../libs/jquery-3.6.0.min.js"></script>
+    <script src="../../libs/socket.io.min.js"></script>
     <script src="./js/index.js?t=<?=time()?>"></script>
     <title>Pizza</title>
 </head>
@@ -54,11 +62,20 @@
         </svg>
     </div>
     <div id="content">
-        <a id="Session">New Session</a>
-        <br>
-        <a id="Ingredients">Ingredients</a>
-        <br>
-        <a id="Options">Options</a>
+        
     </div>
 </body>
 </html>
+<!--
+       :\     /;               _
+      ;  \___/  ;             ; ;
+     ,:-"'   `"-:.            / ;
+    /,---.   ,---.\         _; /
+   ((  |  ) (  |  ))    ,-""_,"
+    \`````   `````/""""",-""
+     '-.._ v _..-'      )
+       / ___   ____,..  \
+      / /   | |   | ( \. \
+     / /    | |    | |  \ \
+     `"     `"     `"    `"
+-->

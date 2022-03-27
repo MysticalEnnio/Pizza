@@ -7,11 +7,10 @@
   	<meta property="og:type" content="website">
 	<meta property="og:url" content="http://mystaredia.de/sites/pizza">
 	<meta property="og:title" content="MystiChat">
-	<meta property="og:description" content="Pizza start Site">
+	<meta property="og:description" content="Pizza start site">
 	<meta property="og:image" content="http://mystaredia.de/assets/pictures/Mystaredia.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Italianno">
     <link rel="stylesheet" href="css/style.css?t=<?=time()?>">
-    <script src="js/index.js?t=<?=time()?>"></script>
     <title>Piza</title>
 </head>
 <body>
